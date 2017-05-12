@@ -1,5 +1,8 @@
 #include "serialtest.h"
 #include <ros/ros.h>
+#include <string>
+#include <iostream>
+using namespace std;
 
 int main(int argc,char **argv)
 {
@@ -15,10 +18,12 @@ int main(int argc,char **argv)
      while(true)
      {
       ROS_INFO("from here to write data to serialcom");
-      serail_test.Write();
+	char data[20] = {0};
+	cin>>data;
+      serail_test.Write(data);
       setbuf(stdin,NULL);
       getchar();
-      usleep(100000);
+      //usleep(100000);
      }
      ros::spin();
      return 0;

@@ -2,7 +2,7 @@
 <package>
   <name>opencv_zbar</name>
   <version>0.0.0</version>
-  <description>The opencv_zbar package</description>
+  <description>The zbar_publisher package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->

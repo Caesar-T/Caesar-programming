@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(opencv_zbar)
 set(CMAKE_MODULE_PATH ${ZBARCV_SOURCE_DIR})
 find_package (OpenCV)
-find_package (ZBar0)
+#find_package (ZBar0)
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   image_transport
@@ -30,8 +30,8 @@ catkin_package(
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
-add_executable(zbar_opencv src/zbar_opencv.cpp)
-target_link_libraries(zbar_opencv
+add_executable(zbar_publisher src/zbar_publisher.cpp)
+target_link_libraries(zbar_publisher
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES} 
   ${ZBAR_LIBRARIES}

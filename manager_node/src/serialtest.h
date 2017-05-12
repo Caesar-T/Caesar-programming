@@ -18,13 +18,13 @@ public:
     int ValueInitOpenSerial(int index);
     void ReadSerialDate();
 
-    int Write();
+    int Write(const char *str);
     int Read();
 private:
     Serial *m_serial;
     int m_serial_fd;
     boost::thread *m_rec_threadid;
-    boost::mutex m_mutex;
+    boost::recursive_mutex m_mutex;
     bool runSerialComThread;
     //pthread_t m_rec_threadid;
     unsigned char m_rec_data[REC_DATA_LEN];
