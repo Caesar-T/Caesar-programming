@@ -1,5 +1,7 @@
 #ifndef SERIAL_H
 #define SERIAL_H
+
+
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <unistd.h>
@@ -11,6 +13,7 @@
 #include  <errno.h>
 #include  <limits.h>
 #include  <string.h>
+#include <ros/ros.h>
 enum
 {
     COM0 = 0,

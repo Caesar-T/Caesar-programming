@@ -4,6 +4,8 @@
 SerialTest::SerialTest()
 {
     m_serial = new Serial();
+
+    runSerialComThread = false;
 }
 
 SerialTest::~SerialTest()
@@ -11,41 +13,48 @@ SerialTest::~SerialTest()
 
 }
 
-void* ReadSerialDate(void *para)
+void SerialTest::ReadSerialDate()
 {
-    SerialTest *p_serial_test = (SerialTest*)para;
-    printf("ReadSerialDate Thread Start\n");
-    while(1)
+    
+    ROS_INFO("Read SerialDateThread Start\n");
+    sleep(5);
+    ros::Time::init();
+    while(runSerialComThread)
     {
-         p_serial_test->Read();
-         usleep(10000);
+        m_mutex.lock();
+        Read();
+        
+        m_mutex.unlock();
+        
     }
-    printf("Receive thread break!\n");
-    pthread_detach(pthread_self());
-    pthread_exit(0);
-    return 0;
+    ROS_INFO("Receive thread interrupt!\n");
+    
 }
 
 int SerialTest::ValueInitOpenSerial(int index)
 {
+    runSerialComThread = true;
     m_serial_fd =  m_serial->OpenPort(index);
     if (m_serial_fd < 0)
     {
-          printf("Open serial port %d failed!\n",index);
+          ROS_ERROR("Open serial port %d failed!\n",index);
          return -1;
      }
     else
     {
-        printf("Open serial port %d Success\n",m_serial_fd);
+        ROS_INFO("Open serial port %d Success\n",m_serial_fd);
     }
 
     m_serial->SetPara(m_serial_fd,6);
-
-  if(pthread_create(&m_rec_threadid, NULL,ReadSerialDate,this) != 0)
-  {
-      printf("creat Receive_Thread failed \n");
+    m_rec_threadid = new boost::thread(boost::bind(&SerialTest::ReadSerialDate,this));
+    if(m_rec_threadid == NULL)
+    {
+      ROS_ERROR("creat Receive_Thread failed \n");
       m_serial->ClosePort(m_serial_fd);
       m_serial_fd = -1;
+      m_rec_threadid->join();
+      runSerialComThread = false;
+      delete m_rec_threadid;
       return -1;
    }
   return 0;
@@ -60,7 +69,7 @@ int SerialTest::Write()
     data[3] = 0x0A;
     if(m_serial->WriteData(m_serial_fd,data,strlen(data)) < 0)
     {
-           printf("Write Data Fail!\n");
+           ROS_ERROR("Write Data Fail!\n");
            return -1;
     }
     return 0;
@@ -70,7 +79,7 @@ int SerialTest::Read()
 {
       if( m_serial->ReadData(m_serial_fd,m_rec_data,REC_DATA_LEN) > 0)
     {
-      printf("REC Data %s\n",m_rec_data);
+      ROS_INFO("REC Data %s\n",m_rec_data);
       return 0;
      }
       return -1;
