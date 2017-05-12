@@ -1,0 +1,6 @@
+*.user
+*.txt~
+*.xml~
+
+src/*.cpp~
+src/*.h~
