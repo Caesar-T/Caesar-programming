@@ -30,7 +30,11 @@ catkin_package(
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
-add_executable(zbar_publisher src/zbar_publisher.cpp)
+add_executable(zbar_publisher 
+	src/zbar_publisher.cpp
+	src/zbar_publisher.h
+	src/main.cpp
+)
 target_link_libraries(zbar_publisher
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES} 

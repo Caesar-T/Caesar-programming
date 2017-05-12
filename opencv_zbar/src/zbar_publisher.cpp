@@ -1,40 +1,16 @@
-#include <ros/ros.h>
-#include <image_transport/image_transport.h>
-#include <cv_bridge/cv_bridge.h>
-#include <sensor_msgs/image_encodings.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <zbar.h>
-#include <std_msgs/String.h>
-#include <iostream>
-#include <iomanip>
+#include "zbar_publisher.h"
 
-using namespace std;
-using namespace cv;
-using namespace zbar;
-
-
-class Publisher_qr
+Publisher_qr::Publisher_qr()
 {
-    ros::NodeHandle nh;
-    //image_transport::ImageTransport it_;
-    //image_transport::Publisher qr_pub;
-    ros::Publisher qr_pub;
-    ImageScanner scanner;
-    
-public:
-    Publisher_qr()
-    {
         qr_pub = nh.advertise<std_msgs::String>("connection", 1000); 
         camerascanner();
-    }
-    ~Publisher_qr()
+}
+    Publisher_qr::~Publisher_qr()
     {}
 
 
 
-    void  camerascanner()
+    void  Publisher_qr::camerascanner()
     {
         VideoCapture cap(0);
         if (!cap.isOpened()) 
@@ -108,15 +84,3 @@ public:
         }
 
     }
-      
-}; 
-
-
-
-int main(int argc, char *argv[])
-{
-    ros::init(argc,argv,"qr_publisher");
-    Publisher_qr p_qr;
-    ros::spin();
-    return 0;
-}
