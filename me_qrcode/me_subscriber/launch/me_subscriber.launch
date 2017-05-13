@@ -1,4 +1,6 @@
 <launch>
 	<node pkg="me_subscriber" type="me_subscriber_node" name="me_subscriber_node" output="screen" respawn="true"  />
 
+
+
 </launch>
