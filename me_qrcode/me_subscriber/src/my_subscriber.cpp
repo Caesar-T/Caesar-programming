@@ -25,7 +25,7 @@ class qr_subscriber
 public:
   qr_subscriber():it(nh)
   {
-  	  ROS_INFO("I am construtor");
+  	  //ROS_INFO("I am construtor");
       sub = it.subscribe("camera/image",1,&qr_subscriber::imageCallback,this);
 
       qr_pub_ = nh.advertise<std_msgs::String>("qr_code", 10);
@@ -33,13 +33,13 @@ public:
   }
   ~qr_subscriber()
   {
-  		ROS_INFO("bye bye");
+  		//ROS_INFO("bye bye");
   }
 
 
   void imageCallback(const sensor_msgs::ImageConstPtr& msg)
   {
-  		ROS_INFO("I am coming!");
+  		//ROS_INFO("I am coming!");
         cv_bridge::CvImagePtr cv_ptr;
         cv::Mat frame_grayscale;
         std_msgs::String text;
@@ -51,7 +51,7 @@ public:
         // convert ros image to mat
         try
         {
-        	ROS_INFO("transform successfully!");
+        	//ROS_INFO("transform successfully!");
             cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
         }
         catch (cv_bridge::Exception& e)
@@ -80,7 +80,7 @@ public:
             //publish
             if(text.data != "") 
             {
-            	ROS_INFO("text is : [%s]",text.data.c_str());
+            	//ROS_INFO("text is : [%s]",text.data.c_str());
                 qr_pub_.publish(text);
                 if (last_text != text.data || (ros::Time::now()).toSec() - last_time.toSec() > 10) 
                 {

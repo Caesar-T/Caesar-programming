@@ -30,7 +30,6 @@ public:
       		exit(EXIT_FAILURE);
   		}  
 
-  		namedWindow("captured", CV_WINDOW_AUTOSIZE);
   		// cv::Mat frame;  
   		// sensor_msgs::ImagePtr msg;  
   		ros::Rate loop_rate(5);
@@ -42,13 +41,14 @@ public:
 
   			if(!frame.empty()) 
   			{  
-  				ROS_INFO("ASDFKJASDK");
+  				//ROS_INFO("ASDFKJASDK");
       			msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame).toImageMsg();  
       			pub.publish(msg);    
     		}
     		
     		loop_rate.sleep();
     		imshow("captured",frame);
+    		waitKey(1);
   		} 
 
 	}

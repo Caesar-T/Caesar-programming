@@ -1,0 +1,8 @@
+<launch>
+	<node pkg="me_publisher" type="me_publisher_node" name="me_publisher_node" output="screen" respawn="true"  />
+
+	<include file="$(find me_subscriber)/launch/me_subscriber.launch"/>
+
+
+
+</launch>
