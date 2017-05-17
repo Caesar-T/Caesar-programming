@@ -1,0 +1,2 @@
+PumpControlComName: /dev/ttyUSB2
+PumpLoopRate: 10

@@ -1,0 +1,7 @@
+<launch>
+  
+  <node pkg="we_pump_control" type="control" name="we_pump_control" output="screen"/>
+    <rosparam file="$(find we_pump_control)/cfg/PumpControlParameter.yaml" command="load" />
+</node>
+</launch>
+

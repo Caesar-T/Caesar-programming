@@ -1,0 +1,8 @@
+prefix=/home/kejia/catkin_new/src/manager_node/qt/devel
+
+Name: manager_node
+Description: Description of manager_node
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/kejia/catkin_new/src/manager_node/qt/devel/lib 
+Requires: std_msgs roscpp
