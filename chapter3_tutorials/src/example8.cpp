@@ -41,7 +41,7 @@ int main( int argc, char **argv )
 
     frame->header.stamp = ros::Time::now();
     pub_image.publish( frame->toImageMsg() );
-
+    cv::imshow("capured",frame->image);
     cv::waitKey( 3 );
 
     ros::spinOnce();
